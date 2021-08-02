@@ -9,7 +9,7 @@ const data ={
             rating: 4.5,
             numReviews: 10,
             countInStock: 20,
-            description: 'A popular shirt',
+            description: 'A popular wallpaper',
         },
         {
             name: 'Wallpaper 2',
@@ -33,7 +33,7 @@ const data ={
             countInStock: 20,
             description: 'A popular shirt',
         },
-    ]
-}
+    ],
+};
 
 export default data
