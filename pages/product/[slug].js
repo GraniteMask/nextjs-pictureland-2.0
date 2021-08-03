@@ -19,7 +19,7 @@ export default function ProductScreen() {
         // <div>
         //     <h1>{product.name}</h1>
         // </div>
-        <Layout title={product.name}>
+        <Layout title={product.name} description={product.description}>
             <div className={classes.section}>
                 <NextLink href="/" passHref>
                     <Link><Typography>back to products</Typography></Link>
@@ -86,3 +86,4 @@ export default function ProductScreen() {
 
 //md for medium devices and xs for extra small devices
 //most important element of a webpage to be h1 for SEO so typography component to h1
+//description is also added for SEO. Add the relevant code for description in layout page also 
