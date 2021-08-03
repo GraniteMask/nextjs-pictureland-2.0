@@ -17,7 +17,7 @@ export default function Home() {
                 <NextLink href={`/product/${product.slug}`} passHref>
                   <CardActionArea>
                     <CardMedia
-                      component="img"
+                       component="img"
                       image={product.image}
                       title={product.name}
                     ></CardMedia>

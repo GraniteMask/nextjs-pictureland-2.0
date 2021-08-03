@@ -4,12 +4,12 @@ import NextLink from 'next/link'
 import {AppBar, Typography, Toolbar, Container, Link} from '@material-ui/core'
 import useStyles from '../utils/styles'
 
-export default function Layout({children}) {
+export default function Layout({title, children}) {
     const classes = useStyles();
     return (
         <div>
             <Head>
-                <title>PictureLand 2.0</title>
+                <title>{title? `${title} - PictureLand 2.0`:'PictureLand 2.0'}</title>
             </Head>
             <AppBar position="static" className={classes.navbar}>
                 <Toolbar>
