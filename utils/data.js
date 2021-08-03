@@ -2,6 +2,7 @@ const data ={
     products:[
         {
             name: 'Wallpaper 1',
+            slug: 'Wallpaper1',
             category: 'Abstract',
             image: '/images/sample.jpg',
             price: 100,
@@ -13,6 +14,7 @@ const data ={
         },
         {
             name: 'Wallpaper 2',
+            slug: 'Wallpaper2',
             category: 'Abstract',
             image: '/images/sample.jpg',
             price: 100,
@@ -24,6 +26,7 @@ const data ={
         },
         {
             name: 'Wallpaper 3',
+            slug: 'Wallpaper3',
             category: 'Abstract',
             image: '/images/sample.jpg',
             price: 100,
