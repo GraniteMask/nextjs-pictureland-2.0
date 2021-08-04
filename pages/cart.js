@@ -1,4 +1,4 @@
-import { Button, Grid, Link, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import { Button, Card, Grid, Link, List, ListItem, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React, { useContext } from 'react'
 import Layout from '../components/layout'
 import { Store } from '../utils/Store'
@@ -72,7 +72,19 @@ export default function CartScreen() {
                         </TableContainer>
                     </Grid>
                     <Grid item md={3} xs={12}>
-                        cart actions
+                        <Card>
+                            <List>
+                                <ListItem>
+                                    <Typography variant="h2">
+                                        Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)} {' '} items) : $
+                                        {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                                    </Typography>
+                                </ListItem>
+                                <ListItem>
+                                    <Button variant="contained" color="primary" fullWidth>Check Out</Button>
+                                </ListItem>
+                            </List>
+                        </Card>
                     </Grid>
                 </Grid>
             )}
