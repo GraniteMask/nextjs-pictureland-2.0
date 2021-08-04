@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import Head from 'next/head'
 import NextLink from 'next/link'
-import {AppBar, Typography, Toolbar, Container, Link, createMuiTheme, ThemeProvider, CssBaseline, Switch} from '@material-ui/core'
+import {AppBar, Typography, Toolbar, Container, Link, createMuiTheme, ThemeProvider, CssBaseline, Switch, Badge} from '@material-ui/core'
 import useStyles from '../utils/styles'
 import { createTheme } from '@material-ui/core/styles'
 import { Store } from '../utils/Store'
@@ -9,7 +9,7 @@ import Cookies from 'js-cookie'
 
 export default function Layout({title, description, children}) {
     const {state, dispatch} = useContext(Store)
-    const {darkMode} = state;
+    const {darkMode, cart} = state;
     const theme = createTheme({
         typography:{
             h1:{
@@ -66,7 +66,7 @@ export default function Layout({title, description, children}) {
                             <Switch checked={darkMode} onChange={darkModeChangeHandler}></Switch>
                             <NextLink href='/cart'>
                                 <Link>
-                                    Cart
+                                    {cart.cartItems.length > 0 ? (<Badge badgeContent={cart.cartItems.length}>Cart</Badge>) : ("Cart")}
                                 </Link>
                             </NextLink>
                             <NextLink href='/login'>
