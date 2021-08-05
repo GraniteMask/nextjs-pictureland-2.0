@@ -1,5 +1,5 @@
 import { Button, List, ListItem, TextField, Typography, Link } from '@material-ui/core'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../components/layout'
 import useStyles from '../utils/styles'
 import NextLink from 'next/link'
@@ -15,12 +15,15 @@ export default function Login() {
     const {redirect} = router.query
     const {userInfo} = state;
 
-    console.log(userInfo)
+    // console.log(userInfo)
     
+    useEffect(()=>{
+        if(userInfo){
+            router.push('/')
+        }
+    },[])
 
-    if(userInfo){
-        router.push('/')
-    }
+    
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -32,7 +35,8 @@ export default function Login() {
         try{
             const {data} = await axios.post('/api/users/login', {email, password})
             dispatch({type:"USER_LOGIN", payload: data})
-            Cookies.set('userInfo', data)
+            console.log(data)
+            Cookies.set('userInfo', JSON.stringify(data))
             router.push(redirect || '/')
             // alert('success login')
         }catch(err){
