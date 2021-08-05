@@ -1,12 +1,27 @@
 import { Button, List, ListItem, TextField, Typography, Link } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Layout from '../components/layout'
 import useStyles from '../utils/styles'
 import NextLink from 'next/link'
 import axios from 'axios'
-
+import { Store } from '../utils/Store'
+import {useRouter} from 'next/router'
+import Cookies from 'js-cookie'
+ 
 
 export default function Login() {
+    const router = useRouter()
+    const {state, dispatch} = useContext(Store)
+    const {redirect} = router.query
+    const {userInfo} = state;
+
+    console.log(userInfo)
+    
+
+    if(userInfo){
+        router.push('/')
+    }
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -16,9 +31,12 @@ export default function Login() {
         e.preventDefault()
         try{
             const {data} = await axios.post('/api/users/login', {email, password})
-            alert('success login')
+            dispatch({type:"USER_LOGIN", payload: data})
+            Cookies.set('userInfo', data)
+            router.push(redirect || '/')
+            // alert('success login')
         }catch(err){
-            alert(err.message)
+            alert(err.response.data ? err.response.data.message : err.message)
         }
         
     }
