@@ -7,7 +7,7 @@ import { Store } from '../utils/Store'
 import {useRouter} from 'next/router'
 import Cookies from 'js-cookie'
 import { Controller, useForm } from 'react-hook-form'
-import CheckOutWizard from '../components/checkOutWizard'
+import CheckOutWizard from '../components/CheckOutWizard'
 
  
 
@@ -27,7 +27,7 @@ export default function Shipping() {
         setValue('fullName', shippingAddress.fullName)
         setValue('address', shippingAddress.address)
         setValue('city', shippingAddress.city)
-        setValue('postalcode', shippingAddress.postalcode)
+        setValue('postalCode', shippingAddress.postalCode)
         setValue('country', shippingAddress.country)
     },[])
 
@@ -40,12 +40,14 @@ export default function Shipping() {
 
     const classes = useStyles()
 
-    const submitHandler =  ({fullName, address, city, postalcode, country}) =>{
+    const submitHandler =  ({fullName, address, city, postalCode, country}) =>{
         // e.preventDefault()
 
-        dispatch({type:"SAVE_SHIPPING_ADDRESS", payload: {fullName, address, city, postalcode, country}})
-        Cookies.set('shippingAddress', JSON.stringify({fullName, address, city, postalcode, country}))
+        dispatch({type:"SAVE_SHIPPING_ADDRESS", payload: {fullName, address, city, postalCode, country}})
+        Cookies.set('shippingAddress', JSON.stringify({fullName, address, city, postalCode, country}))
         router.push('/payment')
+
+       
     }
 
     return (
