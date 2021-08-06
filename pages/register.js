@@ -37,6 +37,7 @@ export default function Register() {
 
         if(password !== confirmPassword){
             alert("Password don't matched")
+            return
         }
 
         try{
@@ -75,7 +76,7 @@ export default function Register() {
                         <Button variant="contained" type="submit" fullWidth color="primary">Register</Button>
                     </ListItem>
                     <ListItem>
-                        Already have an account ? &nbsp; {' '} <NextLink href={`/login?redirect=${redirect || '/'}`} passHref><Link>Register</Link></NextLink>
+                        Already have an account ? &nbsp; {' '} <NextLink href={`/login?redirect=${redirect || '/'}`} passHref><Link>Login</Link></NextLink>
                     </ListItem>
                 </List>
             </form>
