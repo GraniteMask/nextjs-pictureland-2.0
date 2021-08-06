@@ -7,6 +7,7 @@ import { Store } from '../utils/Store'
 import {useRouter} from 'next/router'
 import Cookies from 'js-cookie'
 import { Controller, useForm } from 'react-hook-form'
+import CheckOutWizard from '../components/checkOutWizard'
 
  
 
@@ -49,6 +50,7 @@ export default function Shipping() {
 
     return (
         <Layout title="Shipping">
+            <CheckOutWizard activeStep={1}/>
             <form onSubmit={handleSubmit(submitHandler)} className={classes.form}>
                 <Typography component="h1" variant="h1">
                     Shipping Address
