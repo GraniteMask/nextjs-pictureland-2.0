@@ -11,11 +11,11 @@ import { Controller, useForm } from 'react-hook-form'
  
 
 export default function Shipping() {
-    const {handleSubmit, control, formState: {errors}} = useForm()
+    const {handleSubmit, control, formState: {errors}, setValue} = useForm()
     const router = useRouter()
     const {state, dispatch} = useContext(Store)
     const {redirect} = router.query
-    const {userInfo} = state;
+    const {userInfo, cart:{shippingAddress}} = state;
 
     // console.log(userInfo)
     
@@ -23,6 +23,11 @@ export default function Shipping() {
         if(!userInfo){
             router.push('/login?redirect=/shipping')
         }
+        setValue('fullName', shippingAddress.fullName)
+        setValue('address', shippingAddress.address)
+        setValue('city', shippingAddress.city)
+        setValue('postalcode', shippingAddress.postalcode)
+        setValue('country', shippingAddress.country)
     },[])
 
     
