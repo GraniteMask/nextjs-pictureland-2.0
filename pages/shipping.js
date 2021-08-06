@@ -46,7 +46,7 @@ export default function Shipping() {
         <Layout title="Shipping">
             <form onSubmit={handleSubmit(submitHandler)} className={classes.form}>
                 <Typography component="h1" variant="h1">
-                    Shipping
+                    Shipping Address
                 </Typography>
                 <List>
 
@@ -55,13 +55,89 @@ export default function Shipping() {
                             required: true,
                             minLength: 2,
                         }} render={({field})=>(
-                            <TextField variant="outlined" fullWidth id="fullName" label="Full Name" inputProps={{type: 'name'}} 
+                            <TextField variant="outlined" fullWidth id="fullName" label="Full Name" inputProps={{type: 'text'}} 
                             error={Boolean(errors.fullName)}
                             helperText ={
                                 errors.fullName ? 
                                 errors.fullName.type === 'minLength'?
                                 'Full Name length must be more than 1 '
                                 :'Full Name is required'
+                                :''}
+                            {...field}></TextField>
+                        )}>
+
+                        </Controller>
+                    </ListItem>
+
+                    <ListItem>
+                        <Controller name="address" control={control} defaultValue="" rules={{
+                            required: true,
+                            minLength: 2,
+                        }} render={({field})=>(
+                            <TextField variant="outlined" fullWidth id="address" label="Address" inputProps={{type: 'text'}} 
+                            error={Boolean(errors.address)}
+                            helperText ={
+                                errors.address ? 
+                                errors.address.type === 'minLength'?
+                                'Address length must be more than 1 '
+                                :'Address is required'
+                                :''}
+                            {...field}></TextField>
+                        )}>
+
+                        </Controller>
+                    </ListItem>
+
+                    <ListItem>
+                        <Controller name="city" control={control} defaultValue="" rules={{
+                            required: true,
+                            minLength: 2,
+                        }} render={({field})=>(
+                            <TextField variant="outlined" fullWidth id="city" label="City" inputProps={{type: 'text'}} 
+                            error={Boolean(errors.city)}
+                            helperText ={
+                                errors.city ? 
+                                errors.city.type === 'minLength'?
+                                'City length must be more than 1 '
+                                :'City Name is required'
+                                :''}
+                            {...field}></TextField>
+                        )}>
+
+                        </Controller>
+                    </ListItem>
+
+                    <ListItem>
+                        <Controller name="postalCode" control={control} defaultValue="" rules={{
+                            required: true,
+                            minLength: 2,
+                        }} render={({field})=>(
+                            <TextField variant="outlined" fullWidth id="postalCode" label="Postal Code" inputProps={{type: 'text'}} 
+                            error={Boolean(errors.postalCode)}
+                            helperText ={
+                                errors.postalCode ? 
+                                errors.postalCode.type === 'minLength'?
+                                'Postal Code length must be more than 1 '
+                                :'Postal Code is required'
+                                :''}
+                            {...field}></TextField>
+                        )}>
+
+                        </Controller>
+                    </ListItem>
+
+                    <ListItem>
+                        <Controller name="country" control={control} defaultValue="" rules={{
+                            required: true,
+                            minLength: 2,
+                        }} render={({field})=>(
+                            <TextField variant="outlined" fullWidth id="country" label="Country" inputProps={{type: 'text'}} 
+                            error={Boolean(errors.country)}
+                            helperText ={
+                                errors.country ? 
+                                errors.country.type === 'minLength'?
+                                'Country length must be more than 1 '
+                                :'Country is required'
                                 :''}
                             {...field}></TextField>
                         )}>
