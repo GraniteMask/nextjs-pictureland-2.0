@@ -48,7 +48,7 @@ export default function Register() {
         try{
             const {data} = await axios.post('/api/users/register', {name, email, password})
             dispatch({type:"USER_LOGIN", payload: data})
-            console.log(data)
+            // console.log(data)
             Cookies.set('userInfo', JSON.stringify(data))
             router.push(redirect || '/')
             // alert('success login')
@@ -86,7 +86,7 @@ export default function Register() {
                                 errors.name ? 
                                 errors.name.type === 'minLength'?
                                 'Name length must be more than 1 '
-                                :'Email is required'
+                                :'Name is required'
                                 :''}
                             {...field}></TextField>
                         )}>
