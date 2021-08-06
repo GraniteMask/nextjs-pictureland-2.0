@@ -1,3 +1,4 @@
+import { SnackbarProvider } from 'notistack'
 import { useEffect } from 'react'
 import '../styles/globals.css'
 import { StoreProvider } from '../utils/Store'
@@ -10,7 +11,11 @@ function MyApp({ Component, pageProps }) {
     }
   },[]) //written to solve the problem of not applying material styling after refresh
 
-  return (<StoreProvider><Component {...pageProps} /></StoreProvider>) 
+  return (
+  <SnackbarProvider anchorOrigin={{vertical: 'top', horizontal:'center'}}>
+    <StoreProvider><Component {...pageProps} /></StoreProvider>
+  </SnackbarProvider>
+  ) 
 }
 
 export default MyApp
