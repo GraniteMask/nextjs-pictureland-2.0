@@ -8,10 +8,9 @@ import dynamic from 'next/dynamic'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import useStyles from '../../utils/styles'
-import CheckoutWizard from '../../components/CheckOutWizard'
+
 import { getError } from '../../utils/error'
 import { useSnackbar } from 'notistack'
-import Cookies from 'js-cookie'
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 
 function reducer(state, action){
@@ -22,6 +21,14 @@ function reducer(state, action){
             return {...state, loading: false, order: action.payload, error:''}
         case 'FETCH_FAIL':
             return {...state, loading: false, error: action.payload}
+        case "PAY_REQUEST":
+            return {...state, loadingPay: true}
+        case 'PAY_SUCCESS':
+            return {...state, loadingPay: false, successPay: true}
+        case 'PAY_FAIL':
+            return {...state, loadingPay: false, errorPay: action.payload}
+        case 'PAY_RESET':
+            return {...state, loadingPay: false, errorPay: '', successPay: false}
         default:
             state
     }
@@ -35,7 +42,7 @@ function Order({params}) {
     const {state} = useContext(Store)
     const { userInfo } = state
 
-    const [{loading, error, order}, dispatch] = useReducer(reducer, {loading: true, order:{}, error:''})
+    const [{loading, error, order, successPay}, dispatch] = useReducer(reducer, {loading: true, order:{}, error:''})
 
     const {
         shippingAddress,
@@ -66,8 +73,11 @@ function Order({params}) {
                 dispatch({type:'FETCH_FAIL', payload:getError(err)})
             }
         }
-        if(!order._id || (order._id && order._id !== orderId)){
+        if(!order._id || successPay || (order._id && order._id !== orderId)){
             fetchOrder()
+            if(successPay){
+                dispatch({type: 'PAY_RESET'})
+            }
         }else{
             const loadPaypalScript = async() =>{
                 const {data: clientId} = await axios.get('/api/keys/paypal',{
@@ -82,7 +92,7 @@ function Order({params}) {
             loadPaypalScript()
         }
 
-    },[order])
+    },[order, successPay])
 
     // console.log(order.shippingAddress.fullName)
 
@@ -90,7 +100,7 @@ function Order({params}) {
     // const [loading, setLoading] = useState(false)
 
     function createOrder(data,actions){
-        return actions.order.createOrder({
+        return actions.order.create({
             purchase_units:[
                 {
                     amount: {value: totalPrice},
@@ -124,7 +134,6 @@ function Order({params}) {
 
     return (
         <Layout title={`Order ${orderId}`}>
-            <CheckoutWizard activeStep={3}></CheckoutWizard>
             <Typography component="h1" variant="h1">Order Details of {orderId}</Typography>
             {loading ? (<CircularProgress />)
             :
@@ -270,9 +279,11 @@ function Order({params}) {
                                 !isPaid && (
                                     <ListItem>
                                         { isPending ? (<CircularProgress />)
-                                        :
+                                        :( <div className={classes.fullWidth}>
                                             <PayPalButtons createOrder={createOrder}
-                                            onApprove={onApprove} onError={onError}></PayPalButtons>
+                                            onApprove={onApprove} onError={onError}></PayPalButtons></div>
+                                        )
+                                            
                                         }
                                     </ListItem>
                                 )
