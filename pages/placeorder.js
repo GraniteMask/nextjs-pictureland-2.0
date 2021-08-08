@@ -1,5 +1,5 @@
-import { Button, Card, Grid, Link, List, ListItem, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
-import React, { useContext, useEffect } from 'react'
+import { Button, Card, Grid, Link, List, ListItem, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, CircularProgress } from '@material-ui/core'
+import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../components/layout'
 import { Store } from '../utils/Store'
 import NextLink from 'next/link'
@@ -9,12 +9,15 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import useStyles from '../utils/styles'
 import CheckoutWizard from '../components/CheckOutWizard'
+import { getError } from '../utils/error'
+import { useSnackbar } from 'notistack'
+import Cookies from 'js-cookie'
 
 function PlaceOrder() {
     const classes = useStyles()
     const router = useRouter()
     const {state, dispatch} = useContext(Store)
-    const { cart: {cartItems, shippingAddress, paymentMethod} } = state
+    const { userInfo, cart: {cartItems, shippingAddress, paymentMethod} } = state
 
     const round2 = num => Math.round(num*100 + Number.EPSILON)/100  //123.456 => 123.46
     const itemsPrice = round2(cartItems.reduce((a,c) => a + c.price*c.quantity, 0))
@@ -27,6 +30,36 @@ function PlaceOrder() {
             router.push('/payment')
         }
     },[])
+
+    const {closeSnackbar, enqueueSnackbar} = useSnackbar()
+    const [loading, setLoading] = useState(false)
+
+    const placeOrderHandler = async () =>{
+        closeSnackbar()
+        try{
+            setLoading(true)
+            const {data} = await axios.post('/api/orders',{
+                orderItems: cartItems,
+                shippingAddress,
+                paymentMethod,
+                itemsPrice,
+                shippingPrice,
+                taxPrice,
+                totalPrice
+            },{
+                header:{
+                    authorization: `Bearer ${userInfo.token}`
+                },
+            })
+            dispatch({type: 'CART_CLEAR'})
+            Cookies.remove('cartItems')
+            setLoading(false)
+            router.push(`/order/${data._id}`)
+        }catch(err){
+            setLoading(false)
+            enqueueSnackbar(getError(err), {variant: 'error'})
+        }
+    }
 
     return (
         <Layout title="Shopping Cart">
@@ -164,8 +197,13 @@ function PlaceOrder() {
                                     </Grid>
                                 </ListItem>
                                 <ListItem>
-                                    <Button variant="contained" color="primary" fullWidth>Place your Order</Button>
+                                    <Button onClick={placeOrderHandler} variant="contained" color="primary" fullWidth>Place your Order</Button>
                                 </ListItem>
+                                {loading && (
+                                    <ListItem>
+                                        <CircularProgress />
+                                    </ListItem>
+                                )}
                             </List>
                         </Card>
                     </Grid>
