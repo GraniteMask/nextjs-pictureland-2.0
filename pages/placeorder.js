@@ -29,6 +29,9 @@ function PlaceOrder() {
         if(!paymentMethod){
             router.push('/payment')
         }
+        if(cartItems.length === 0){
+            router.push('/cart')
+        }
     },[])
 
     const {closeSnackbar, enqueueSnackbar} = useSnackbar()
@@ -38,6 +41,7 @@ function PlaceOrder() {
         closeSnackbar()
         try{
             setLoading(true)
+            // console.log('sdsds')
             const {data} = await axios.post('/api/orders',{
                 orderItems: cartItems,
                 shippingAddress,
@@ -47,7 +51,7 @@ function PlaceOrder() {
                 taxPrice,
                 totalPrice
             },{
-                header:{
+                headers:{
                     authorization: `Bearer ${userInfo.token}`
                 },
             })
