@@ -7,7 +7,7 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import useStyles from '../utils/styles'
+import useStyles from '../../utils/styles'
 import CheckoutWizard from '../../components/CheckOutWizard'
 import { getError } from '../../utils/error'
 import { useSnackbar } from 'notistack'
@@ -43,7 +43,7 @@ function Order({params}) {
         taxPrice,
         shippingPrice,
         totalPrice,
-    } = order
+    } = order;
 
     useEffect(()=>{
         if(!userInfo){
@@ -52,7 +52,7 @@ function Order({params}) {
         const fetchOrder = async () =>{
             try{
                 dispatch({type: 'FETCH_REQUEST'})
-                const {data} = await axios.get(`api/orders/${orderId}`<{
+                const {data} = await axios.get(`/api/orders/${orderId}`,{
                     headers: {authorization: `Bearer ${userInfo.token}`}
                 })
                 dispatch({type:'FETCH_SUCCESS', payload:data})
@@ -65,6 +65,8 @@ function Order({params}) {
         }
 
     },[order])
+
+    // console.log(order.shippingAddress.fullName)
 
     const {closeSnackbar, enqueueSnackbar} = useSnackbar()
     // const [loading, setLoading] = useState(false)
