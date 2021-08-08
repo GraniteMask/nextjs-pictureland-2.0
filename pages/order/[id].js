@@ -43,6 +43,10 @@ function Order({params}) {
         taxPrice,
         shippingPrice,
         totalPrice,
+        isPaid,
+        paidAt,
+        isDelivered,
+        deliveredAt,
     } = order;
 
     useEffect(()=>{
@@ -90,6 +94,9 @@ function Order({params}) {
                                 <ListItem>
                                     {shippingAddress.fullName}, {shippingAddress.address},{' '}{shippingAddress.city}, {shippingAddress.postalCode},{' '}{shippingAddress.country}
                                 </ListItem>
+                                <ListItem>
+                                    Status: {' '} {isDelivered ? `delivered at ${deliveredAt}` : 'not delivered'}
+                                </ListItem>
                             </List>
                     </Card>
 
@@ -100,6 +107,9 @@ function Order({params}) {
                                 </ListItem>
                                 <ListItem>
                                     {paymentMethod}
+                                </ListItem>
+                                <ListItem>
+                                    Status: {' '} {isPaid ? `paid at ${paidAt}` : 'not paid'}
                                 </ListItem>
                             </List>
                     </Card>
