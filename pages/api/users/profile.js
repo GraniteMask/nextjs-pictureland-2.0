@@ -13,7 +13,7 @@ handler.put(async(req, res)=>{
     user.name = req.body.name
     user.email = req.body.email
     user.password = req.body.password ? bcrypt.hashSync(req.body.password) : user.password
-    user.save()
+    await user.save()
     await db.disconnect()
     
     const token = signToken(user)

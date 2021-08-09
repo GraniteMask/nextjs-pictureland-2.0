@@ -41,7 +41,10 @@ function Profile() {
         }
 
         try{
-            const {data} = await axios.put('/api/users/profile', {name, email, password})
+            const {data} = await axios.put('/api/users/profile', {name, email, password},{
+                headers: 
+                {authorization: `Bearer ${userInfo.token}`}
+            })
             dispatch({type:"USER_LOGIN", payload: data})
             // console.log(data)
             Cookies.set('userInfo', JSON.stringify(data))
