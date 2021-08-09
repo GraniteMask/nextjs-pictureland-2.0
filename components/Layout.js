@@ -53,8 +53,11 @@ export default function Layout({title, description, children}) {
         console.log('dsdsd')
     }
 
-    const loginMenuCloseHandler = () =>{
+    const loginMenuCloseHandler = (e, redirect) =>{
         setAnchorEl(null)
+        if(redirect){
+            router.push(redirect)
+        }
     }
 
     const logOutClickHandler = () =>{
@@ -105,8 +108,8 @@ export default function Layout({title, description, children}) {
                             open={Boolean(anchorEl)}
                             onClose={loginMenuCloseHandler}
                             >
-                            <MenuItem onClick={loginMenuCloseHandler}>Profile</MenuItem>
-                            <MenuItem onClick={loginMenuCloseHandler}>My account</MenuItem>
+                            <MenuItem onClick={(e)=>loginMenuCloseHandler(e, '/profile')}>Profile</MenuItem>
+                            <MenuItem onClick={(e)=>loginMenuCloseHandler(e, '/order-history')}>Order History</MenuItem>
                             <MenuItem onClick={logOutClickHandler}>Logout</MenuItem>
                             </Menu>
                             </>
