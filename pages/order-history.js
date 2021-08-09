@@ -7,6 +7,9 @@ import { useRouter } from 'next/router'
 import { useReducer } from 'react'
 import axios from 'axios'
 import { getError } from '../utils/error'
+import Layout from '../components/layout'
+import { CircularProgress, Typography } from '@material-ui/core'
+import useStyles from '../utils/styles'
 
 function reducer(state, action){
     switch(action.type){
@@ -26,6 +29,7 @@ export default function OrderHistory() {
     const {state} = useContext(Store)
     const { userInfo } = state
     const router = useRouter()
+    const classes = useStyles()
 
     const [{loading, error, order}, dispatch] = useReducer(reducer, {loading: true, orders:[], error:''})
 
@@ -47,8 +51,7 @@ export default function OrderHistory() {
         fetchOrders()
     }, [])
     return (
-        <Layout title={`Order ${orderId}`}>
-            <Typography component="h1" variant="h1">Order Details of {orderId}</Typography>
+        <Layout title='Your Order History'>
             {loading ? (<CircularProgress />)
             :
             error ? (<Typography className={classes.error}>{error}</Typography>)
