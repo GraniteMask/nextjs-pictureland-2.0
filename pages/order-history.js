@@ -101,7 +101,7 @@ function OrderHistory() {
                                                     <TableCell>{order._id.substring(20, 24)}</TableCell>
                                                     <TableCell>{order.createdAt}</TableCell>
                                                     <TableCell>${order.totalPrice}</TableCell>
-                                                    <TableCell>{order.iPaid ?
+                                                    <TableCell>{order.isPaid ?
                                                     `paid at ${order.paidAt}` :
                                                     'not paid'}</TableCell>
                                                     <TableCell>{order.iDelivered ?
