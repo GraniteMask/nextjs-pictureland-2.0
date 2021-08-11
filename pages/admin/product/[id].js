@@ -38,7 +38,7 @@ function ProductEdit({params}) {
     const productId = params.id
     const {state} = useContext(Store)
     const {handleSubmit, control, formState: {errors}, setValue} = useForm()
-    const [{loading, error}, dispatch] = useReducer(reducer, {loading: true, error:''})
+    const [{loading, error, loadingUpdate}, dispatch] = useReducer(reducer, {loading: true, error:''})
     const { userInfo } = state
     const router = useRouter()
     const classes = useStyles()
@@ -266,6 +266,7 @@ function ProductEdit({params}) {
                                    
                                     <ListItem>
                                         <Button variant="contained" type="submit" fullWidth color="primary">Update</Button>
+                                        {loadingUpdate && <CircularProgress />}
                                     </ListItem>
                                 </List>
                             </form>
