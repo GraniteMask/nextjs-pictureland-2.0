@@ -23,6 +23,12 @@ function reducer(state, action){
             return {...state, loading: false, error:''}
         case 'FETCH_FAIL':
             return {...state, loading: false, error: action.payload}
+        case 'UPDATE_REQUEST':
+            return {...state, loadingUpdate: true, errorUpdate: ''}
+        case 'UPDATE_SUCCESS':
+            return {...state, loadingUpdate: false, errorUpdate:''}
+        case 'UPDATE_FAIL':
+            return {...state, loadingUpdate: false, errorUpdate: action.payload}
         default:
             return state
     }
@@ -66,18 +72,21 @@ function ProductEdit({params}) {
         
     }, [])
 
-    const submitHandler = async ({name}) =>{
+    const submitHandler = async ({name, slug, price, category, image, brand, countInStock, description}) =>{
         // e.preventDefault()
         closeSnackbar()
 
         try{
-            const {data} = await axios.put(`/api/admin/products/${productId}`, {name},{
+            dispatch({type: 'UPDATE_REQUEST'})
+            await axios.put(`/api/admin/products/${productId}`, {name,slug, price, category, image, brand, countInStock, description},{
                 headers: 
                 {authorization: `Bearer ${userInfo.token}`}
             })
-            
+            dispatch({type: 'UPDATE_SUCCESS'})
             enqueueSnackbar("Product updated successfully", {variant: 'success'})
+            router.push('/admin/products')
         }catch(err){
+            dispatch({type: 'UPDATE_FAIL', payload: getError(err)})
             enqueueSnackbar(err.response.data ? err.response.data.message : err.message, {variant: 'error'})
             // alert(err.response.data ? err.response.data.message : err.message)
         }
