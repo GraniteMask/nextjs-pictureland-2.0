@@ -62,6 +62,11 @@ function Products() {
                                     <ListItemText primary="Admin Dashboard"></ListItemText>
                                 </ListItem>
                             </NextLink>
+                            <NextLink href="/admin/orders" passHref>
+                                <ListItem button component="a">
+                                    <ListItemText primary="Orders"></ListItemText>
+                                </ListItem>
+                            </NextLink>
                             <NextLink href="/admin/products" passHref>
                                 <ListItem selected button component="a">
                                     <ListItemText primary="Products"></ListItemText>
@@ -89,11 +94,11 @@ function Products() {
                                         <TableHead>
                                             <TableRow>
                                                 <TableCell>ID</TableCell>
-                                                <TableCell>USER</TableCell>
-                                                <TableCell>DATE</TableCell>
-                                                <TableCell>TOTAL</TableCell>
-                                                <TableCell>PAID</TableCell>
-                                                <TableCell>DELIVERED</TableCell>
+                                                <TableCell>NAME</TableCell>
+                                                <TableCell>PRICE</TableCell>
+                                                <TableCell>CATEGORY</TableCell>
+                                                <TableCell>COUNT</TableCell>
+                                                <TableCell>RATING</TableCell>
                                                 <TableCell>ACTION</TableCell>
                                             </TableRow>
                                         </TableHead>
@@ -101,19 +106,16 @@ function Products() {
                                             {products.map((product)=>(
                                                 <TableRow key={product._id}>
                                                     <TableCell>{product._id.substring(20, 24)}</TableCell>
-                                                    <TableCell>{product.user ? product.user.name : 'DELETED USER'}</TableCell>
-                                                    <TableCell>{product.createdAt}</TableCell>
-                                                    <TableCell>${product.totalPrice}</TableCell>
-                                                    <TableCell>{product.isPaid ?
-                                                    `paid at ${product.paidAt}` :
-                                                    'not paid'}</TableCell>
-                                                    <TableCell>{product.iDelivered ?
-                                                    `delivered at ${product.deliveredAt}` :
-                                                    'not delivered'}</TableCell>
+                                                    <TableCell>{product.name}</TableCell>
+                                                    <TableCell>${product.price}</TableCell>
+                                                    <TableCell>{product.category}</TableCell>
+                                                    <TableCell>{product.countInStock}</TableCell>
+                                                    <TableCell>{product.rating}</TableCell>
                                                     <TableCell>
-                                                        <NextLink href={`/product/${product._id}`} passHref>
-                                                            <Button variant="contained">Details</Button>
-                                                        </NextLink>
+                                                        <NextLink href={`/admin/product/${product._id}`} passHref>
+                                                            <Button size="small" variant="contained">Edit</Button>
+                                                        </NextLink>{' '}
+                                                        <Button size="small" variant="contained">Delete</Button>
                                                     </TableCell>
                                                 </TableRow>
                                             ))}
