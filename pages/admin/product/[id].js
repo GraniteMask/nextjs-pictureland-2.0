@@ -1,19 +1,19 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { useContext } from 'react'
-import { Store } from '../utils/Store'
+import { Store } from '../../../utils/Store'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useReducer } from 'react'
 import axios from 'axios'
-import { getError } from '../utils/error'
-import Layout from '../components/layout'
+import { getError } from '../../../utils/error'
+import Layout from '../../../components/layout'
 import { Button, Card, CircularProgress, Grid, ListItem, ListItemText, TableBody, TableCell, TableContainer, Typography, List, Table, TableHead, TableRow, TextField } from '@material-ui/core'
-import useStyles from '../utils/styles'
+import useStyles from '../../../utils/styles'
 import NextLink from 'next/link'
 import { Controller, useForm } from 'react-hook-form'
 import { useSnackbar } from 'notistack'
-import Cookies from 'js-cookie'
+
 
 function reducer(state, action){
     switch (action.type){
@@ -30,7 +30,7 @@ function reducer(state, action){
 
 function ProductEdit({params}) {
     const productId = params.id
-    const {state, dispatch} = useContext(Store)
+    const {state} = useContext(Store)
     const {handleSubmit, control, formState: {errors}, setValue} = useForm()
     const [{loading, error}, dispatch] = useReducer(reducer, {loading: true, error:''})
     const { userInfo } = state
@@ -49,14 +49,14 @@ function ProductEdit({params}) {
                         headers: {authorization: `Bearer ${userInfo.token}`}
                     })
                     dispatch({type: 'FETCH_SUCCESS'})
-                    setValue('name', userInfo.name)
-                    setValue('slug', userInfo.slug)
-                    setValue('price', userInfo.price)
-                    setValue('image', userInfo.image)
-                    setValue('category', userInfo.category)
-                    setValue('brand', userInfo.brand)
-                    setValue('countInStock', userInfo.countInStock)
-                    setValue('description', userInfo.description)
+                    setValue('name', data.name)
+                    setValue('slug', data.slug)
+                    setValue('price', data.price)
+                    setValue('image', data.image)
+                    setValue('category', data.category)
+                    setValue('brand', data.brand)
+                    setValue('countInStock', data.countInStock)
+                    setValue('description', data.description)
                 }catch(err){
                     dispatch({type: 'FETCH_FAIL', payload: getError(err)})
                 } 
