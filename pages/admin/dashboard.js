@@ -1,16 +1,17 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { useContext } from 'react'
-import { Store } from '../utils/Store'
+import { Store } from '../../utils/Store'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useReducer } from 'react'
 import axios from 'axios'
-import { getError } from '../utils/error'
-import Layout from '../components/layout'
-import { Button, Card, CircularProgress, Grid, ListItem, ListItemText, TableBody, TableCell, TableContainer, Typography, List, Table, TableHead, TableRow, CardContent } from '@material-ui/core'
-import useStyles from '../utils/styles'
+import { getError } from '../../utils/error'
+import Layout from '../../components/layout'
+import { Button, Card, CircularProgress, Grid, ListItem, ListItemText, TableBody, TableCell, TableContainer, Typography, List, Table, TableHead, TableRow, CardContent, CardActions } from '@material-ui/core'
+import useStyles from '../../utils/styles'
 import NextLink from 'next/link'
+import {Bar} from 'react-chartjs-2'
 
 function reducer(state, action){
     switch(action.type){
@@ -49,7 +50,7 @@ function AdminDashboard() {
                 dispatch({type:'FETCH_FAIL', payload:getError(err)})
             }
         }
-        fetchOrders()
+        fetchData()
     }, [])
     return (
         <Layout title='Your Order History'>
@@ -57,13 +58,13 @@ function AdminDashboard() {
                 <Grid item md={3} xs={12}>
                     <Card className={classes.section}>
                         <List>
-                            <NextLink href="/admin/dashboard" passHref>
-                                <ListItem button component="a">
+                            <NextLink  href="/admin/dashboard" passHref>
+                                <ListItem selected button component="a">
                                     <ListItemText primary="Admin Dashboard"></ListItemText>
                                 </ListItem>
                             </NextLink>
                             <NextLink href="/admin/orders" passHref>
-                                <ListItem selected button component="a">
+                                <ListItem  button component="a">
                                     <ListItemText primary="Orders"></ListItemText>
                                 </ListItem>
                             </NextLink>
@@ -119,7 +120,7 @@ function AdminDashboard() {
                                         <Card raised>
                                             <CardContent>
                                                 <Typography variant="h1">
-                                                    ${summary.productsCount}
+                                                    {summary.productsCount}
                                                 </Typography>
                                                 <Typography>Products</Typography>
                                             </CardContent>
@@ -136,7 +137,7 @@ function AdminDashboard() {
                                         <Card raised>
                                             <CardContent>
                                                 <Typography variant="h1">
-                                                    ${summary.usersCount}
+                                                    {summary.userCount}
                                                 </Typography>
                                                 <Typography>Users</Typography>
                                             </CardContent>
@@ -158,7 +159,18 @@ function AdminDashboard() {
                                 </Typography>
                             </ListItem>
                             <ListItem>
-                                Implement Sales Chart
+                                <Bar data={{labels: summary.salesData.map((x)=> x._id),
+                                datasets: [
+                                    {
+                                        labels: 'Sales',
+                                        backgroundColor: 'rgba(162,222,208,1)',
+                                        data: summary.salesData.map((x)=>x.totalSales)
+                                    }
+                                ]}}
+                                options={{
+                                    legend: {display: true, position: 'right'},
+                                }}>
+                                </Bar>
                             </ListItem>
                         </List>
                     </Card>
