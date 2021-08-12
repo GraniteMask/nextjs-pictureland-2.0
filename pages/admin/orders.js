@@ -26,7 +26,7 @@ function reducer(state, action){
     }
 }
 
-function AdminDashboard() {
+function AdminOrders() {
     const {state} = useContext(Store)
     const { userInfo } = state
     const router = useRouter()
@@ -141,4 +141,4 @@ function AdminDashboard() {
     )
 }
 
-export default dynamic(()=> Promise.resolve(AdminDashboard),{ssr:false})
+export default dynamic(()=> Promise.resolve(AdminOrders),{ssr:false})
