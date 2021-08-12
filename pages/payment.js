@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import React, { useContext, useEffect, useState } from 'react'
 import CheckOutWizard from '../components/CheckOutWizard'
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import { Store } from '../utils/Store'
 import useStyles from '../utils/styles'
 

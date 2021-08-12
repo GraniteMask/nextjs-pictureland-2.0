@@ -1,6 +1,6 @@
 import { Button, List, ListItem, TextField, Typography } from '@material-ui/core'
 import React, { useContext, useEffect } from 'react'
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import useStyles from '../utils/styles'
 import { Store } from '../utils/Store'
 import {useRouter} from 'next/router'

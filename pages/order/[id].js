@@ -1,6 +1,6 @@
 import { Button, Card, Grid, Link, List, ListItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, CircularProgress } from '@material-ui/core'
 import React, { useContext, useEffect, useReducer } from 'react'
-import Layout from '../../components/layout'
+import Layout from '../../components/Layout'
 import { Store } from '../../utils/Store'
 import NextLink from 'next/link'
 import Image from 'next/image'

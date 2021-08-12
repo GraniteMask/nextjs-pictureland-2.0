@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import {useRouter} from 'next/router'
 import Image from 'next/image'
-import Layout from '../../components/layout'
+import Layout from '../../components/Layout'
 import NextLink from 'next/link'
 import { Button, Card, Grid, Link, List, ListItem, Typography } from '@material-ui/core'
 import useStyles from '../../utils/styles'
