@@ -29,6 +29,16 @@ function reducer(state, action){
             return {...state, loadingUpdate: false, errorUpdate:''}
         case 'UPDATE_FAIL':
             return {...state, loadingUpdate: false, errorUpdate: action.payload}
+        case 'UPLOAD_REQUEST':
+            return {...state, loadingUpload: true, errorUpload:''}
+        case 'UPLOAD_SUCCESS':
+            return{
+                ...state,
+                loadingUpload: false,
+                errorUpload: ''
+            }
+        case 'UPLOAD_FAIL':
+            return {...state, loadingUpload: false, errorUpload: action.payload}
         default:
             return state
     }
@@ -38,7 +48,7 @@ function ProductEdit({params}) {
     const productId = params.id
     const {state} = useContext(Store)
     const {handleSubmit, control, formState: {errors}, setValue} = useForm()
-    const [{loading, error, loadingUpdate}, dispatch] = useReducer(reducer, {loading: true, error:''})
+    const [{loading, error, loadingUpdate, loadingUpload}, dispatch] = useReducer(reducer, {loading: true, error:''})
     const { userInfo } = state
     const router = useRouter()
     const classes = useStyles()
@@ -71,6 +81,28 @@ function ProductEdit({params}) {
         }
         
     }, [])
+
+    const uploadHandler = async (e) =>{
+        const file = e.target.files[0]
+        const bodyFormData = new FormData()
+        bodyFormData.append('file',file)
+        bodyFormData.append('upload_preset',"pictureland2")
+        try{
+            dispatch({type: "UPLOAD_REQUEST"})
+            const {data} = await axios.post('/api/admin/upload', bodyFormData,{
+                headers:{
+                    'Content-Type': 'multipart/form-data',
+                    authorization: `Bearer ${userInfo.token}`,
+                }
+            })
+            dispatch({type: 'UPLOAD_SUCCESS'})
+            setValue('image', data.secure_url)
+            enqueueSnackbar("Image uploaded successfully", {variant: 'success'})
+        }catch(err){
+            dispatch({type: 'UPLOAD_FAIL', payload: getError(err)})
+            enqueueSnackbar(err.response.data ? err.response.data.message : err.message, {variant: 'error'})
+        }
+    }
 
     const submitHandler = async ({name, slug, price, category, image, brand, countInStock, description}) =>{
         // e.preventDefault()
@@ -198,6 +230,13 @@ function ProductEdit({params}) {
                                         )}>
 
                                         </Controller>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Button variant="contained" component="label">
+                                            Upload Image
+                                            <input type="file" onChange={uploadHandler} hidden/>
+                                        </Button>
+                                        {loadingUpload && <CircularProgress></CircularProgress>}
                                     </ListItem>
                                     <ListItem>
                                         <Controller name="category" control={control} defaultValue="" rules={{
