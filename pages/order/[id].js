@@ -1,5 +1,5 @@
-import { Button, Card, Grid, Link, List, ListItem, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, CircularProgress } from '@material-ui/core'
-import React, { useContext, useEffect, useReducer, useState } from 'react'
+import { Button, Card, Grid, Link, List, ListItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, CircularProgress } from '@material-ui/core'
+import React, { useContext, useEffect, useReducer } from 'react'
 import Layout from '../../components/layout'
 import { Store } from '../../utils/Store'
 import NextLink from 'next/link'
@@ -107,7 +107,7 @@ function Order({params}) {
 
     // console.log(order.shippingAddress.fullName)
 
-    const {closeSnackbar, enqueueSnackbar} = useSnackbar()
+    const {enqueueSnackbar} = useSnackbar()
     // const [loading, setLoading] = useState(false)
 
     function createOrder(data,actions){

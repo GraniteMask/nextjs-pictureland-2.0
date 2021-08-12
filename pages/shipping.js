@@ -1,8 +1,7 @@
-import { Button, List, ListItem, TextField, Typography, Link } from '@material-ui/core'
-import React, { useContext, useEffect, useState } from 'react'
+import { Button, List, ListItem, TextField, Typography } from '@material-ui/core'
+import React, { useContext, useEffect } from 'react'
 import Layout from '../components/layout'
 import useStyles from '../utils/styles'
-import NextLink from 'next/link'
 import { Store } from '../utils/Store'
 import {useRouter} from 'next/router'
 import Cookies from 'js-cookie'
@@ -15,7 +14,6 @@ export default function Shipping() {
     const {handleSubmit, control, formState: {errors}, setValue} = useForm()
     const router = useRouter()
     const {state, dispatch} = useContext(Store)
-    const {redirect} = router.query
     const {userInfo, cart:{shippingAddress}} = state;
 
     // console.log(userInfo)

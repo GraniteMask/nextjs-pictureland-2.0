@@ -1,5 +1,5 @@
 import { Button, List, ListItem, TextField, Typography, Link } from '@material-ui/core'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Layout from '../components/layout'
 import useStyles from '../utils/styles'
 import NextLink from 'next/link'
@@ -104,7 +104,7 @@ export default function Login() {
                         <Button variant="contained" type="submit" fullWidth color="primary">Login</Button>
                     </ListItem>
                     <ListItem>
-                        Don't have an account ? &nbsp; {' '} <NextLink href={`/register?redirect=${redirect || '/'}`} passHref><Link>Register</Link></NextLink>
+                        Don&apos;t have an account ? &nbsp; {' '} <NextLink href={`/register?redirect=${redirect || '/'}`} passHref><Link>Register</Link></NextLink>
                     </ListItem>
                 </List>
             </form>

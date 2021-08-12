@@ -8,7 +8,7 @@ import { useReducer } from 'react'
 import axios from 'axios'
 import { getError } from '../../../utils/error'
 import Layout from '../../../components/layout'
-import { Button, Card, CircularProgress, Grid, ListItem, ListItemText, TableBody, TableCell, TableContainer, Typography, List, Table, TableHead, TableRow, TextField, FormControlLabel, Checkbox } from '@material-ui/core'
+import { Button, Card, CircularProgress, Grid, ListItem, ListItemText, Typography, List, TextField, FormControlLabel, Checkbox } from '@material-ui/core'
 import useStyles from '../../../utils/styles'
 import NextLink from 'next/link'
 import { Controller, useForm } from 'react-hook-form'
@@ -49,7 +49,7 @@ function UserEdit({params}) {
     const {state} = useContext(Store)
     const {handleSubmit, control, formState: {errors}, setValue} = useForm()
     const [isAdmin, setIsAdmin] = useState(false)
-    const [{loading, error, loadingUpdate, loadingUpload}, dispatch] = useReducer(reducer, {loading: true, error:''})
+    const [{loading, error, loadingUpdate}, dispatch] = useReducer(reducer, {loading: true, error:''})
     const { userInfo } = state
     const router = useRouter()
     const classes = useStyles()

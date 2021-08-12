@@ -8,7 +8,7 @@ import { useReducer } from 'react'
 import axios from 'axios'
 import { getError } from '../../utils/error'
 import Layout from '../../components/layout'
-import { Button, Card, CircularProgress, Grid, ListItem, ListItemText, TableBody, TableCell, TableContainer, Typography, List, Table, TableHead, TableRow, CardContent, CardActions } from '@material-ui/core'
+import { Button, Card, CircularProgress, Grid, ListItem, ListItemText, TableBody, TableCell, TableContainer, Typography, List, Table, TableHead, TableRow} from '@material-ui/core'
 import useStyles from '../../utils/styles'
 import NextLink from 'next/link'
 import { useSnackbar } from 'notistack'
@@ -39,7 +39,7 @@ function Users() {
     const { userInfo } = state
     const router = useRouter()
     const classes = useStyles()
-    const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+    const {enqueueSnackbar} = useSnackbar()
 
 
     const [{loading, error, users, successDelete, loadingDelete}, dispatch] = useReducer(reducer, {loading: true, users:[], error:''})

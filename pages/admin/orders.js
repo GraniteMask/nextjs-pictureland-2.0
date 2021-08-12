@@ -8,7 +8,7 @@ import { useReducer } from 'react'
 import axios from 'axios'
 import { getError } from '../../utils/error'
 import Layout from '../../components/layout'
-import { Button, Card, CircularProgress, Grid, ListItem, ListItemText, TableBody, TableCell, TableContainer, Typography, List, Table, TableHead, TableRow, CardContent, CardActions } from '@material-ui/core'
+import { Button, Card, CircularProgress, Grid, ListItem, ListItemText, TableBody, TableCell, TableContainer, Typography, List, Table, TableHead, TableRow} from '@material-ui/core'
 import useStyles from '../../utils/styles'
 import NextLink from 'next/link'
 
