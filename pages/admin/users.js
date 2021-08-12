@@ -88,7 +88,7 @@ function Users() {
     }
 
     return (
-        <Layout title='Your User History'>
+        <Layout title='User History'>
              <Grid container spacing={1}>
                 <Grid item md={3} xs={12}>
                     <Card className={classes.section}>
@@ -103,6 +103,11 @@ function Users() {
                                     <ListItemText primary="Orders"></ListItemText>
                                 </ListItem>
                             </NextLink>
+                            <NextLink href="/admin/products" passHref>
+                                <ListItem  button component="a">
+                                    <ListItemText primary="Products"></ListItemText>
+                                </ListItem>
+                            </NextLink>
                             <NextLink href="/admin/users" passHref>
                                 <ListItem selected button component="a">
                                     <ListItemText primary="Users"></ListItemText>
@@ -115,21 +120,12 @@ function Users() {
                     <Card className={classes.section}>
                         <List>
                             <ListItem>
-                                <Grid container alignItems="center">
-                                    <Grid item xs={6}>
-                                        <Typography component="h1" variant="h1">
-                                            Users
-                                        </Typography>
-                                        {loadingDelete && <CircularProgress />}
-                                    </Grid>
-                                    <Grid align="right" item xs={6}>
-                                        <Button onClick={createHandler} color="primary" variant="contained">
-                                            Create
-                                        </Button>
-                                        {loadingCreate && <CircularProgress/>}
-                                    </Grid>
-                                </Grid>
-                                
+                               
+                                <Typography component="h1" variant="h1">
+                                    Users
+                                </Typography>
+                                {loadingDelete && <CircularProgress />}
+                                   
                             </ListItem>
                             
                             <ListItem>
@@ -143,10 +139,8 @@ function Users() {
                                             <TableRow>
                                                 <TableCell>ID</TableCell>
                                                 <TableCell>NAME</TableCell>
-                                                <TableCell>PRICE</TableCell>
-                                                <TableCell>CATEGORY</TableCell>
-                                                <TableCell>COUNT</TableCell>
-                                                <TableCell>RATING</TableCell>
+                                                <TableCell>EMAIL</TableCell>
+                                                <TableCell>ISADMIN</TableCell>
                                                 <TableCell>ACTION</TableCell>
                                             </TableRow>
                                         </TableHead>
@@ -155,10 +149,8 @@ function Users() {
                                                 <TableRow key={user._id}>
                                                     <TableCell>{user._id.substring(20, 24)}</TableCell>
                                                     <TableCell>{user.name}</TableCell>
-                                                    <TableCell>${user.price}</TableCell>
-                                                    <TableCell>{user.category}</TableCell>
-                                                    <TableCell>{user.countInStock}</TableCell>
-                                                    <TableCell>{user.rating}</TableCell>
+                                                    <TableCell>{user.email}</TableCell>
+                                                    <TableCell>{user.isAdmin ? 'YES':'NO'}</TableCell>
                                                     <TableCell>
                                                         <NextLink href={`/admin/user/${user._id}`} passHref>
                                                             <Button size="small" variant="contained">Edit</Button>
