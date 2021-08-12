@@ -6,7 +6,7 @@ import { Store } from '../utils/Store'
 import {useRouter} from 'next/router'
 import Cookies from 'js-cookie'
 import { Controller, useForm } from 'react-hook-form'
-import CheckOutWizard from '../components/Checkoutwizard'
+import CheckOutWizard from '../components/CheckOutWizard'
 
  
 
