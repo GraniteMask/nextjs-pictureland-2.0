@@ -1,12 +1,17 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Head from 'next/head'
 import NextLink from 'next/link'
-import {AppBar, Typography, Toolbar, Container, Link, ThemeProvider, CssBaseline, Switch, Badge, Button, Menu, MenuItem} from '@material-ui/core'
+import {AppBar, Typography, Toolbar, Container, Link, ThemeProvider, CssBaseline, Switch, Badge, Button, Menu, MenuItem, Box, IconButton, Drawer, Divider, List, ListItem, ListItemText} from '@material-ui/core'
 import useStyles from '../utils/styles'
 import { createTheme } from '@material-ui/core/styles'
 import { Store } from '../utils/Store'
+import { getError } from '../utils/error'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+import MenuIcon from '@material-ui/icons/Menu'
+import CancelIcon from '@material-ui/icons/Cancel'
+import { useSnackbar } from 'notistack'
+import axios from 'axios'
 
 export default function Layout({title, description, children}) {
     const router = useRouter()
@@ -39,6 +44,31 @@ export default function Layout({title, description, children}) {
         },
     })
     const classes = useStyles();
+
+    const [sidbarVisible, setSidebarVisible] = useState(false);
+    const sidebarOpenHandler = () => {
+        setSidebarVisible(true);
+    };
+    const sidebarCloseHandler = () => {
+        setSidebarVisible(false);
+    };
+
+    const [categories, setCategories] = useState([]);
+    const { enqueueSnackbar } = useSnackbar();
+
+    const fetchCategories = async () => {
+        try {
+          const { data } = await axios.get(`/api/products/categories`);
+          setCategories(data);
+        } catch (err) {
+            console.log(err)
+          enqueueSnackbar(getError(err), { variant: 'error' });
+        }
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
 
     const darkModeChangeHandler = () =>{
         dispatch({type: darkMode ? 'DARK_MODE_OFF' : 'DARK_MODE_ON'})
@@ -80,7 +110,16 @@ export default function Layout({title, description, children}) {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <AppBar position="static" className={classes.navbar}>
-                    <Toolbar>
+                    <Toolbar className={classes.toolbar}>
+                        <Box display="flex" alignItems="center">
+                        <IconButton
+                            edge="start"
+                            aria-label="open drawer"
+                            onClick={sidebarOpenHandler}
+                            className={classes.menuButton}
+                        >
+                            <MenuIcon className={classes.navbarButton} />
+                        </IconButton>   
                         <NextLink href="/" passHref>
                             <Link>
                                 <Typography className={classes.brand}>
@@ -88,6 +127,48 @@ export default function Layout({title, description, children}) {
                                 </Typography>
                             </Link>
                         </NextLink>
+                        </Box>
+
+                        <Drawer
+                            anchor="left"
+                            open={sidbarVisible}
+                            onClose={sidebarCloseHandler}
+                            >
+                            <List>
+                                <ListItem>
+                                <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    justifyContent="space-between"
+                                >
+                                    <Typography>Shopping by category</Typography>
+                                    <IconButton
+                                    aria-label="close"
+                                    onClick={sidebarCloseHandler}
+                                    >
+                                    <CancelIcon />
+                                    </IconButton>
+                                </Box>
+                                </ListItem>
+                                <Divider light />
+                                {categories.map((category) => (
+                                <NextLink
+                                    key={category}
+                                    href={`/search?category=${category}`}
+                                    passHref
+                                >
+                                    <ListItem
+                                    button
+                                    component="a"
+                                    onClick={sidebarCloseHandler}
+                                    >
+                                    <ListItemText primary={category}></ListItemText>
+                                    </ListItem>
+                                </NextLink>
+                                ))}
+                            </List>
+                        </Drawer>
+                        
                         <div className={classes.grow}></div>
                         <div>
                             <Switch checked={darkMode} onChange={darkModeChangeHandler}></Switch>
