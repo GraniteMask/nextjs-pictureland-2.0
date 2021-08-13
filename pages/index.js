@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useContext } from 'react'
 import { Store } from '../utils/Store'
 import { useRouter } from 'next/router'
+import Rating from '@material-ui/lab/Rating'
 
 
 export default function Home(props) {
@@ -51,6 +52,7 @@ export default function Home(props) {
                     ></CardMedia>
                     <CardContent>
                       <Typography>{product.name}</Typography>
+                      <Rating value={product.rating} readOnly></Rating>
                     </CardContent>
                   </CardActionArea>
                 </NextLink>

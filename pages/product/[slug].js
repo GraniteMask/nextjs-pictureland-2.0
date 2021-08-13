@@ -9,6 +9,7 @@ import Product from '../../models/Product'
 import db from '../../utils/db'
 import { Store } from '../../utils/Store'
 import axios from 'axios'
+import Rating from '@material-ui/lab/Rating'
 
 export default function ProductScreen(props) {
     const router = useRouter()
@@ -66,7 +67,11 @@ export default function ProductScreen(props) {
                            <Typography>Brand: {product.brand}</Typography> 
                         </ListItem>
                         <ListItem>
-                            <Typography>Rating: {product.rating} stars ({product.numReviews} reviews)</Typography>
+                            <Rating value={product.rating} readOnly></Rating>
+                            <Link href="#reviews">
+                                <Typography>({product.numReviews} reviews)</Typography>
+                            </Link>
+                            
                         </ListItem>
                         <ListItem>
                             <Typography>Description: {product.brand}</Typography>
