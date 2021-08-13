@@ -69,3 +69,5 @@ handler.use(isAuth).post(async (req, res) => {
       res.status(404).send({ message: 'Product Not Found' });
     }
   });
+
+  export default handler

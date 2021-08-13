@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {useRouter} from 'next/router'
 import Image from 'next/image'
 import Layout from '../../components/Layout'
@@ -10,6 +10,7 @@ import db from '../../utils/db'
 import { Store } from '../../utils/Store'
 import axios from 'axios'
 import Rating from '@material-ui/lab/Rating'
+import { useSnackbar } from 'notistack'
 
 export default function ProductScreen(props) {
     const router = useRouter()
@@ -19,6 +20,24 @@ export default function ProductScreen(props) {
     // const router = useRouter()
     // const {slug} = router.query
     // const product = data.products.find(a => a.slug === slug)
+    const {enqueueSnackbar} = useSnackbar()
+
+    const [reviews, setReviews] = useState([])
+
+    const fetchReviews = async() =>{
+        try{
+            const {data} = await axios.get(`/api/products/${product._id}/reviews`)
+            setReviews(data)
+        }catch(err){
+            enqueueSnackbar(err.response.data ? err.response.data.message : err.message, {variant: 'error'})
+
+        }
+    }
+
+    useEffect(()=>{
+        fetchReviews()
+    },[])
+
     if(!product){
         return <div>Product not Found</div>
     }
@@ -110,6 +129,14 @@ export default function ProductScreen(props) {
                     </Card>
                 </Grid>
             </Grid>
+            <List>
+                <ListItem>
+                    <Typography name="reviews" id="reviews" variant="h2">
+                        Customer Reviews
+                    </Typography>
+                </ListItem>
+                {reviews.length === 0 && <ListItem>No Reviews</ListItem>}
+            </List>
         </Layout>
     )
 }
