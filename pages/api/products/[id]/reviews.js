@@ -1,4 +1,3 @@
-import nc from 'next-connect'
 import mongoose from 'mongoose'
 import {onError} from '../../../../utils/error'
 import db from '../../../../utils/db'
