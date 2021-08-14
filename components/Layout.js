@@ -12,6 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import CancelIcon from '@material-ui/icons/Cancel'
 import { useSnackbar } from 'notistack'
 import axios from 'axios'
+import SearchIcon from '@material-ui/icons/Search';
 
 export default function Layout({title, description, children}) {
     const router = useRouter()
@@ -169,7 +170,23 @@ export default function Layout({title, description, children}) {
                             </List>
                         </Drawer>
                         
-                        <div className={classes.grow}></div>
+                        <div className={classes.searchSection}>
+                            <form onSubmit={submitHandler} className={classes.searchForm}>
+                                <InputBase
+                                name="query"
+                                className={classes.searchInput}
+                                placeholder="Search products"
+                                onChange={queryChangeHandler}
+                                />
+                                <IconButton
+                                type="submit"
+                                className={classes.iconButton}
+                                aria-label="search"
+                                >
+                                <SearchIcon />
+                                </IconButton>
+                            </form>
+                        </div>
                         <div>
                             <Switch checked={darkMode} onChange={darkModeChangeHandler}></Switch>
                             <NextLink href='/cart'>
