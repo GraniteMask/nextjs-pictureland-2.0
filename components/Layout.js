@@ -13,6 +13,7 @@ import CancelIcon from '@material-ui/icons/Cancel'
 import { useSnackbar } from 'notistack'
 import axios from 'axios'
 import SearchIcon from '@material-ui/icons/Search';
+import { InputBase } from '@material-ui/core'
 
 export default function Layout({title, description, children}) {
     const router = useRouter()
