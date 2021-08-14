@@ -67,6 +67,15 @@ export default function Layout({title, description, children}) {
         }
     };
 
+    const [query, setQuery] = useState('');
+    const queryChangeHandler = (e) => {
+        setQuery(e.target.value);
+    };
+    const submitHandler = (e) => {
+        e.preventDefault();
+        router.push(`/search?query=${query}`);
+    };
+
     useEffect(() => {
         fetchCategories();
     }, []);
