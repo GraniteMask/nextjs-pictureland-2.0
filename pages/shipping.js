@@ -42,8 +42,8 @@ export default function Shipping() {
     const submitHandler =  ({fullName, address, city, postalCode, country}) =>{
         // e.preventDefault()
 
-        dispatch({type:"SAVE_SHIPPING_ADDRESS", payload: {fullName, address, city, postalCode, country}})
-        Cookies.set('shippingAddress', JSON.stringify({fullName, address, city, postalCode, country, location})) //location is added after cookies
+        dispatch({type:"SAVE_SHIPPING_ADDRESS", payload: {fullName, address, city, postalCode, country, location}}) //location is added after google map integration
+        Cookies.set('shippingAddress', JSON.stringify({fullName, address, city, postalCode, country, location})) //location is added after google map integration
         router.push('/payment')
 
        
