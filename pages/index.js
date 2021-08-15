@@ -1,4 +1,4 @@
-import { Card, CardActionArea, Grid, CardMedia, CardContent, Typography, CardActions, Button } from '@material-ui/core'
+import { Card, CardActionArea, Grid, CardMedia, CardContent, Typography, CardActions, Button, Link } from '@material-ui/core'
 import Layout from '../components/Layout'
 import NextLink from 'next/link'
 import db from '../utils/db'
@@ -8,10 +8,13 @@ import { useContext } from 'react'
 import { Store } from '../utils/Store'
 import { useRouter } from 'next/router'
 import Rating from '@material-ui/lab/Rating'
+import Carousel from 'react-material-ui-carousel'
+import useStyles from '../utils/styles'
 
 
 export default function Home(props) {
-  const {products} = props
+  const classes = useStyles()
+  const {products, featuredProducts} = props
   const {state, dispatch} = useContext(Store)
   const router = useRouter()
 
@@ -36,9 +39,25 @@ export default function Home(props) {
 
   return (
     <Layout>
-      <div>
-        <h1>Products</h1>
-
+      <Carousel className={classes.mt1} animation="slide">
+        {featuredProducts.map((product) => (
+          <NextLink
+            key={product._id}
+            href={`/product/${product.slug}`}
+            passHref
+          >
+            <Link>
+              <img
+                src={product.featuredImage}
+                alt={product.name}
+                className={classes.featuredImage}
+              ></img>
+            </Link>
+          </NextLink>
+        ))}
+      </Carousel>
+      
+      <Typography variant="h2">Popular Products</Typography>
         <Grid container spacing={3}>
           {products.map((product) => (
             <Grid item md={4} key={product.name}>
@@ -66,8 +85,6 @@ export default function Home(props) {
             </Grid>
           ))}
         </Grid>
-      
-      </div>
     </Layout>
     
   )
@@ -75,11 +92,15 @@ export default function Home(props) {
 
 export async function getServerSideProps(){
   await db.connect()
-  const products = await Product.find({},'-reviews').lean()
+  const featuredProductsDocs = await Product.find({isFeatured: true},'-reviews').lean().limit(3)
+  const topRatedProducts = await Product.find({},'-reviews').lean().sort({
+    rating: -1,
+  }).limit(6)
   await db.disconnect()
   return{
     props:{
-      products: products.map(db.convertDocToObj),
+      featuredProducts: featuredProductsDocs.map(db.convertDocToObj),
+      products: topRatedProducts.map(db.convertDocToObj),
     }
   }
 }

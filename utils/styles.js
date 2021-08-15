@@ -87,6 +87,9 @@ const useStyles = makeStyles((theme)=>({
     sort:{
         marginRight: 5,
     },
+    featuredImage:{
+        width: '100%'
+    }
 
 }));
 
