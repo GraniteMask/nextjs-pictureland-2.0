@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Card, CardActionArea, Grid, CardMedia, CardContent, Typography, CardActions, Button, Link } from '@material-ui/core'
 import Layout from '../components/Layout'
 import NextLink from 'next/link'
