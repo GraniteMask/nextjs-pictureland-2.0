@@ -244,7 +244,7 @@ export default function Layout({title, description, children}) {
                 </Container>
                 <footer className={classes.footer}>
                     <Typography>
-                        All rights reserved. PictureLand 2.0
+                        All rights reserved. 2021 PictureLand 2.0 
                     </Typography>
                 </footer>
             </ThemeProvider>
