@@ -11,10 +11,11 @@ import CheckOutWizard from '../components/CheckOutWizard'
  
 
 export default function Shipping() {
-    const {handleSubmit, control, formState: {errors}, setValue} = useForm()
+    const {handleSubmit, control, formState: {errors}, setValue, getValues} = useForm()
     const router = useRouter()
     const {state, dispatch} = useContext(Store)
     const {userInfo, cart:{shippingAddress}} = state;
+    const {location} = shippingAddress   //after integrating google maps
 
     // console.log(userInfo)
     
@@ -42,11 +43,32 @@ export default function Shipping() {
         // e.preventDefault()
 
         dispatch({type:"SAVE_SHIPPING_ADDRESS", payload: {fullName, address, city, postalCode, country}})
-        Cookies.set('shippingAddress', JSON.stringify({fullName, address, city, postalCode, country}))
+        Cookies.set('shippingAddress', JSON.stringify({fullName, address, city, postalCode, country, location})) //location is added after cookies
         router.push('/payment')
 
        
     }
+
+    const chooseLocationHandler = () => {
+        const fullName = getValues('fullName');
+        const address = getValues('address');
+        const city = getValues('city');
+        const postalCode = getValues('postalCode');
+        const country = getValues('country');
+        dispatch({
+          type: 'SAVE_SHIPPING_ADDRESS',
+          payload: { fullName, address, city, postalCode, country },
+        });
+        Cookies.set('shippingAddress', {
+          fullName,
+          address,
+          city,
+          postalCode,
+          country,
+          location,
+        });
+        router.push('/map');
+      };
 
     return (
         <Layout title="Shipping">
@@ -150,6 +172,19 @@ export default function Shipping() {
                         )}>
 
                         </Controller>
+                    </ListItem>
+
+                    <ListItem>
+                        <Button
+                        variant="contained"
+                        type="button"
+                        onClick={chooseLocationHandler}
+                        >
+                        Choose on map
+                        </Button>
+                        <Typography>
+                        {location.lat && `${location.lat}, ${location.lat}`}
+                        </Typography>
                     </ListItem>
                     
                     <ListItem>
