@@ -1,34 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pictureland-v2
+Pictureland-v2 is an upgraded version of my previous project that is Pictureland-v1. This is a website where you can buy and sell images.
 
-## Getting Started
+![Pictureland Home Page](https://github.com/GraniteMask/sociogram-1/blob/master/sociogram.png?raw=true)
 
-First, run the development server:
+## SNEEK-PEEK of technologies I used:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1) Nextjs
+2) Database : Mongo ATLAS
+3) Cloudstorage: Cloudinary API
+4) Material UI
+5) Authentication: JsonWebtokens (JWT)
+6) Code Editor: VS Code
+7) Deployment: Vercel
+8) Payment: Paypal
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Highlighted Features:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+1) Creating profile
+2) Login and SignUp using JWT
+3) Ecommerce buying system
+4) SEO enabled application for better search results through search engines 
+5) Sales Chart for sellers
+6) LIGHT & DARK mode facility available
+7) creating and deleting cart facilities
+8) Search using keyword and various item properties
+9) Paypal Payment Integration
+10) Payment and Delivery Status
+11) Order History facilities
+12) Upload and edit profile credentials
+13) Create and delete items for sellers
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Sellers Sales Dashboard
+![Sign_Up_Welcome_Mail](https://github.com/GraniteMask/sociogram-1/blob/master/Sign_Up_Welcome_Mail.png?raw=true)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
