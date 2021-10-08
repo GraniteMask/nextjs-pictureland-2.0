@@ -33,6 +33,6 @@ Link to Pictureland-v1 Git Repo: https://github.com/GraniteMask/pictureland
 13) Create and delete items for sellers
 
 ### Sellers Sales Dashboard
-![Sign_Up_Welcome_Mail](https://github.com/GraniteMask/nextjs-pictureland-2.0/blob/master/sales-dashboard.png?raw=true)
+![Sign_Up_Welcome_Mail](https://github.com/GraniteMask/nextjs-pictureland-2.0/blob/master/sales-dashboard.PNG?raw=true)
 
 
