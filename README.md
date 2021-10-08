@@ -1,6 +1,8 @@
 # Pictureland-v2
 Pictureland-v2 is an upgraded version of my previous project that is Pictureland-v1. This is a website where you can buy and sell images.
 
+Link to Pictureland-v1 Git Repo: https://github.com/GraniteMask/pictureland
+
 ![Pictureland Home Page](https://github.com/GraniteMask/nextjs-pictureland-2.0/blob/master/pictureland-2.PNG?raw=true)
 
 ## SNEEK-PEEK of technologies I used:
