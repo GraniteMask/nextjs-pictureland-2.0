@@ -1,7 +1,7 @@
 # Pictureland-v2
 Pictureland-v2 is an upgraded version of my previous project that is Pictureland-v1. This is a website where you can buy and sell images.
 
-![Pictureland Home Page](https://github.com/GraniteMask/sociogram-1/blob/master/sociogram.png?raw=true)
+![Pictureland Home Page](https://github.com/GraniteMask/nextjs-pictureland-2.0/blob/master/pictureland-2.PNG?raw=true)
 
 ## SNEEK-PEEK of technologies I used:
 
@@ -31,6 +31,6 @@ Pictureland-v2 is an upgraded version of my previous project that is Pictureland
 13) Create and delete items for sellers
 
 ### Sellers Sales Dashboard
-![Sign_Up_Welcome_Mail](https://github.com/GraniteMask/sociogram-1/blob/master/Sign_Up_Welcome_Mail.png?raw=true)
+![Sign_Up_Welcome_Mail](https://github.com/GraniteMask/nextjs-pictureland-2.0/blob/master/salesDashboard.png?raw=true)
 
 
