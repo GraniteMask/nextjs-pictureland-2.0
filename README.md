@@ -3,7 +3,7 @@ Pictureland-v2 is an upgraded version of my previous project that is Pictureland
 
 Link to Pictureland-v1 Git Repo: https://github.com/GraniteMask/pictureland
 
-![Pictureland Home Page](https://github.com/GraniteMask/nextjs-pictureland-2.0/blob/master/pictureland-2.PNG?raw=true)
+![image](https://user-images.githubusercontent.com/63235918/182243829-96ceb179-7a64-4b92-a85d-69ce218807d8.png)
 
 ## SNEEK-PEEK of technologies I used:
 
@@ -33,6 +33,6 @@ Link to Pictureland-v1 Git Repo: https://github.com/GraniteMask/pictureland
 13) Create and delete items for sellers
 
 ### Sellers Sales Dashboard
-![Sign_Up_Welcome_Mail](https://github.com/GraniteMask/nextjs-pictureland-2.0/blob/master/sales-dashboard.PNG?raw=true)
+![image](https://user-images.githubusercontent.com/63235918/182243893-d840f6c7-4bbc-43c8-9eb0-8c2ed5a03b93.png)
 
 
